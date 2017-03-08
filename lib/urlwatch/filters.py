@@ -188,6 +188,19 @@ class JsonFormatFilter(FilterBase):
         return dumps(parsed_json, sort_keys=True, indent=4)
 
 
+class ImmoVlanFilter(FilterBase):
+    """Convert to formatted json"""
+
+    __kind__ = 'immovlan_json'
+
+    def filter(self, data, subfilter=None):
+        from json import dumps
+        from json import loads
+        parsed_json = loads(data)['List']
+        parsed_json = list(map(lambda old_dict: { key_to_keep: old_dict[key_to_keep] for key_to_keep in ['AnnouncementId', 'Bedrooms', 'City', 'EnergyClass', 'ImageAlt', 'Location', 'Price', 'SeoItemType', 'Surface', 'Title', 'TotalSurface', 'Trumps', 'Vlancode']}, parsed_json))
+        return dumps(parsed_json, sort_keys=True, indent=4)
+
+
 class GrepFilter(FilterBase):
     """Filter only lines matching a regular expression"""
 
