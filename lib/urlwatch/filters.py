@@ -197,7 +197,11 @@ class ImmoVlanFilter(FilterBase):
         from json import dumps
         from json import loads
         parsed_json = loads(data)['List']
-        parsed_json = list(map(lambda old_dict: { key_to_keep: old_dict[key_to_keep] for key_to_keep in ['AnnouncementId', 'Bedrooms', 'City', 'EnergyClass', 'ImageAlt', 'Location', 'Price', 'SeoItemType', 'Surface', 'Title', 'TotalSurface', 'Trumps', 'Vlancode']}, parsed_json))
+        transform = lambda old_dict: {key_to_keep: (old_dict[key_to_keep] if key_to_keep != 'Vlancode' else 'http://immo.vlan.be/fr/Detail/' + old_dict[key_to_keep]) for key_to_keep in
+                                      ['AnnouncementId', 'Bedrooms', 'City', 'EnergyClass', 'ImageAlt', 'Location',
+                                       'Price', 'SeoItemType', 'Surface', 'Title', 'TotalSurface', 'Trumps',
+                                       'Vlancode']}
+        parsed_json = list(map(transform, parsed_json))
         return dumps(parsed_json, sort_keys=True, indent=4)
 
 
