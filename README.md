@@ -14,6 +14,15 @@ urlwatch is intended to help you watch changes in webpages and get notified
 changes. The change notification will include the URL that has changed and
 a unified diff of what has changed.
 
+GERG INSTALLATION
+-------------------------
+* install python3
+* install pip for python3
+* install lynx
+* python3 -m pip install --user pyyaml minidb requests keyring
+* install this:  python3 setup.py install --user
+
+
 
 DEPENDENCIES
 ------------
